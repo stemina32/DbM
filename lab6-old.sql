@@ -39,22 +39,20 @@ JOIN (select cid, coalesce(sum(dollars),'0') as orderTotal From orders Group by 
 on tblTotal.cid = Customers.cid;
 
 -- 5.
--- SEMICOLON!!!
 SELECT c.name as customerName, p.name as productName, a.name as agentName
 FROM customers c, products p, agents a, orders o
 WHERE c.cid = o.cid
 and p.pid = o.pid
 and a.aid = o.aid
-and a.city = 'Tokyo';
+and a.city = 'Tokyo'
 
 -- 6.Write a query to check the accuracy of the dollars column in the orders table. This means calculating Orders.totalUSD from data in other tables and comparing those values to the values in Orders.totalUSD. Display all rows in Orders where Orders.totalUSD is incorrect, if any.
--- SEMICOLON!!!
 Select *
 From (Select o.*, o.qty*p.priceusd*(1-(discount/100)) as truedollars
  from orders o
  inner join products p on o.pid = p.pid
  inner join customers c on o.cid = c.cid) as tblTemp
-Where dollars != truedollars;
+Where dollars != truedollars
 
 -- 7.What is the difference between a LEFT OUTER JOIN and a RIGHT OUTER JOIN? Give example queries in SQL to demonstrate.
 --First ex. of a LEFT OUTER JOIN
